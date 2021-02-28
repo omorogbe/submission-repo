@@ -84,6 +84,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     #print('221 REPLY NOT RECEIVED FROM SERVER')
 
     clientSocket.close()
+    sys.exit()
 
     # Fill in end
 
