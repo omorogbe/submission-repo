@@ -83,6 +83,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # if recv6[:3] != '221':
     #print('221 REPLY NOT RECEIVED FROM SERVER')
 
+    clientSocket.close()
+
     # Fill in end
 
 
