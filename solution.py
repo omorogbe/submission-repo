@@ -30,7 +30,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Send MAIL FROM command and #print server response.
     # Fill in start
     mailFromCommand = 'MAIL FROM:\r\n'
-    clientSocket.write(mailFromCommand)
+    clientSocket.send(mailFromCommand.encode())
     recv2 = clientSocket.recv(1024).decode()
     # print(recv2)
     # if recv2[:3] != '250':
@@ -40,7 +40,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Send RCPT TO command and #print server response.
     # Fill in start
     rcptToCommand = 'RCPT TO:\r\n'
-    clientSocket.write(rcptToCommand.encode())
+    clientSocket.send(rcptToCommand.encode())
     recv3 = clientSocket.recv(1024).decode()
     # print(recv3)
     # if recv3[:3] != '250':
@@ -51,7 +51,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Send DATA command and #print server response.
     # Fill in start
     dataCommand = 'DATA\r\n'
-    clientSocket.write(dataCommand.encode())
+    clientSocket.send(dataCommand.encode())
     recv4 = clientSocket.recv(1024).decode()
     # print(recv4)
     # if recv4[:3] != '354':
@@ -61,12 +61,12 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send message data.
     # Fill in start
-    clientSocket.write(msg.encode())
+    clientSocket.send(msg.encode())
     # Fill in end
 
     # Message ends with a single period.
     # Fill in start
-    clientSocket.write(endmsg.encode())
+    clientSocket.send(endmsg.encode())
     recv5 = clientSocket.recv(1024).decode()
     # print(recv5)
     # if recv5[:3] != '250':
@@ -77,13 +77,14 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Send QUIT command and get server response.
     # Fill in start
     quitCommand = 'QUIT\r\n'
-    clientSocket.write(quitCommand.encode())
+    clientSocket.send(quitCommand.encode())
     recv6 = clientSocket.recv(1024).decode()
     # print(recv6)
     # if recv6[:3] != '221':
     #print('221 REPLY NOT RECEIVED FROM SERVER')
 
     clientSocket.close()
+    mailserver.close()
     sys.exit()
 
     # Fill in end
